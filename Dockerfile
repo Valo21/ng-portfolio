@@ -1,14 +1,14 @@
 FROM node:21-alpine as dependencies
 WORKDIR /app
 
-RUN npm install -g @angular/cli
-
 COPY package.json package-lock.json ./
 RUN npm install
 
 
 FROM node:21-alpine as builder
 WORKDIR /app
+
+RUN npm install -g @angular/cli
 
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
