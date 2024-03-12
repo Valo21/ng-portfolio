@@ -1,6 +1,8 @@
 FROM node:21-alpine as dependencies
 WORKDIR /app
 
+RUN npm install -g @angular/cli
+
 COPY package.json package-lock.json ./
 RUN npm install
 
