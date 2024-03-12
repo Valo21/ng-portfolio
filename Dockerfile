@@ -16,15 +16,5 @@ COPY . .
 RUN npm run build
 
 
-FROM node:21-alpine as runner
-WORKDIR /app
-
-RUN npm install -g @angular/cli
-
-COPY package.json package-lock.json ./
-
-RUN npm install --production
-
-COPY --from=builder /app/dist ./dist
-
-CMD ["npm", "start"]
+FROM nginx:alpine as runner
+COPY --from=builder /app/dist/ng-portfolio/browser /usr/share/nginx/html
